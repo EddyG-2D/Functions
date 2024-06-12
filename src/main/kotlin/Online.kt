@@ -20,45 +20,33 @@ fun agoToText (timeVisiting:Int) {
 fun agoToMinute (timeVisiting:Int):String {
     var solution = ""
 
-    when (timeVisiting / 60 % 10) {
-        0 -> solution = "${timeVisiting / 60} минут назад"
-        1 -> solution = "${timeVisiting / 60} минуту назад"
-        in 2..4 -> solution = "${timeVisiting / 60} минуты назад"
-        in 5..10 -> solution = "${timeVisiting / 60} минут назад"
-    }
-
-    when (timeVisiting / 60) {
-        in 0..1 -> solution = "${timeVisiting / 60} минуту назад"
-        in 2..4 -> solution = "${timeVisiting / 60} минуты назад"
-        in 5..20 -> solution = "${timeVisiting / 60} минут назад"
+    when {
+        timeVisiting / 60 in 10..20 -> solution = "${timeVisiting / 60} минут назад"
+        timeVisiting / 60 % 10 == 1 -> solution = "${timeVisiting / 60} минуту назад"
+        timeVisiting / 60 % 10 in 2..4 -> solution = "${timeVisiting / 60} минуты назад"
+        else -> solution = "${timeVisiting / 60} минут назад"
     }
     return solution
 }
 
-fun agoToHour (timeVisiting:Int):String {
+    fun agoToHour (timeVisiting:Int):String {
     var solution = ""
 
-    when (timeVisiting / 3600 % 10) {
-        1 -> solution = "${timeVisiting / 3600} час назад"
-        in 2..4 -> solution = "${timeVisiting / 3600} часа назад"
-        in 5..10 -> solution = "${timeVisiting / 3600} часов назад"
-    }
-
-    when (timeVisiting / 3600) {
-        in 0..1 -> solution = "${timeVisiting / 3600} час назад"
-        in 2..4 -> solution = "${timeVisiting / 3600} часа назад"
-        in 5..20 -> solution = "${timeVisiting / 3600} часов назад"
+    when {
+        timeVisiting / 3600 in 10..20 -> solution = "${timeVisiting / 3600} часов назад"
+        timeVisiting / 3600 % 10 == 1 -> solution = "${timeVisiting / 3600} час назад"
+        timeVisiting / 3600 % 10 in 2..4 -> solution = "${timeVisiting / 3600} часа назад"
+        else -> solution = "${timeVisiting / 3600} часов назад"
     }
     return solution
 }
 
-fun agoToDay (timeVisiting:Int):String {
+fun agoToDay (timeVisiting:Int): String {
     var solution = ""
 
     when (timeVisiting / 86400) {
         1 -> solution = "вчера"
         in 2..3 -> solution = "позавчера"
-
     }
     return solution
 }

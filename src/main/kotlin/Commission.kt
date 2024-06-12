@@ -1,11 +1,18 @@
 fun main () {
     var typeCard = "MIR"
     val previousSum = 0
+    val percentCommissionMasterCard = 0.6
+    val minCommissionMasterCard = 20
+    val percentCommissionVisa = 0.75
+    val minCommissionVisa = 35
+    val maxMonthLimitMasterCard = 75_000
+    val maxDayLimitCard = 150_000
+    val maxMonthLimitCard = 600_000
 
-       print("Введите сумму перевода в рублях: ")
+    print("Введите сумму перевода в рублях: ")
     val amount: Int = readln().toInt()
 
-       print("Введите номер (первую цифру) карты для перевода: ")
+    print("Введите номер (первую цифру) карты для перевода: ")
     val numberCard = readln().toCharArray()
     val symbolCard = (numberCard.first())
     when (symbolCard.toString()) {
@@ -14,19 +21,14 @@ fun main () {
         "5" -> typeCard = "MasterCard"
     }
 
-    calculationCommission(typeCard, previousSum, amount)
+    calculationCommission(typeCard, previousSum, amount, percentCommissionMasterCard, minCommissionMasterCard,
+        percentCommissionVisa, minCommissionVisa, maxMonthLimitMasterCard, maxDayLimitCard, maxMonthLimitCard)
 }
 
-fun calculationCommission(typeCard: String, previousSum: Int, amount: Int) {
-    val percentComissionMasterCard = 0.6
-    val minСomissionMasterCard = 20
-    val percentComissionVisa = 0.75
-    val minComissionVisa = 35
-    val maxMonthLimitMasterCard = 75_000
-    val maxDayLimitCard = 150_000
-    val maxMonthLimitCard = 600_000
+fun calculationCommission(typeCard: String, previousSum: Int, amount: Int, percentCommissionMasterCard: Double,
+                          minCommissionMasterCard: Int, percentCommissionVisa: Double, minCommissionVisa: Int,
+                          maxMonthLimitMasterCard: Int, maxDayLimitCard: Int, maxMonthLimitCard: Int) {
     var sumTransfer = 0
-
     println(typeCard)
 
        if (amount + previousSum <= maxMonthLimitCard) {
@@ -38,13 +40,15 @@ fun calculationCommission(typeCard: String, previousSum: Int, amount: Int) {
                 }
 
                 if (typeCard == "VISA") {
-                    if ((amount * percentComissionVisa / 100) < minComissionVisa) {
-                    sumTransfer = (amount - minComissionVisa)
-                    println("Сумма комиссии: $minComissionVisa")
+                    if ((amount * percentCommissionVisa / 100) < minCommissionVisa) {
+                    sumTransfer = (amount - minCommissionVisa)
+                    println("Сумма комиссии: $minCommissionVisa")
+
                 } else {
-                    sumTransfer = (amount - (amount * percentComissionVisa / 100)).toInt()
-                    println("Сумма комиссии: " + (amount * percentComissionVisa / 100))
+                    sumTransfer = (amount - (amount * percentCommissionVisa / 100)).toInt()
+                    println("Сумма комиссии: " + (amount * percentCommissionVisa / 100))
                 }
+
                 println("Сумма перевода: $sumTransfer")
             }
 
@@ -52,14 +56,19 @@ fun calculationCommission(typeCard: String, previousSum: Int, amount: Int) {
                 if ((amount + previousSum) <= maxMonthLimitMasterCard) {
                     sumTransfer = amount
                     println("Сумма комиссии: 0 руб.")
-                    println("Сумма перевода: $sumTransfer")
-                } else {
-                    sumTransfer = ((amount - (((amount + previousSum) - maxMonthLimitMasterCard)
-                            * percentComissionMasterCard / 100)) - minСomissionMasterCard).toInt()
-                    println("Сумма комиссии: " + ((((amount + previousSum) - maxMonthLimitMasterCard)
-                            * percentComissionMasterCard / 100) + minСomissionMasterCard))
-                    println("Сумма перевода: $sumTransfer")
                 }
+
+                if (previousSum > maxMonthLimitMasterCard) {
+                    sumTransfer = (amount - (amount * percentCommissionMasterCard / 100) - minCommissionMasterCard).toInt()
+                    println("Сумма комиссии: " + ((amount * percentCommissionMasterCard / 100) + minCommissionMasterCard))
+                }
+                if ((amount + previousSum) > maxMonthLimitMasterCard && previousSum <= maxMonthLimitMasterCard) {
+                    sumTransfer = ((amount - (((amount + previousSum) - maxMonthLimitMasterCard)
+                            * percentCommissionMasterCard / 100)) - minCommissionMasterCard).toInt()
+                    println("Сумма комиссии: " + ((((amount + previousSum) - maxMonthLimitMasterCard)
+                            * percentCommissionMasterCard / 100) + minCommissionMasterCard))
+                }
+                println("Сумма перевода: $sumTransfer")
             }
 
             } else {
