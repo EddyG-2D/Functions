@@ -1,13 +1,5 @@
 fun main () {
     var typeCard = "MIR"
-    val previousSum = 0
-    val percentCommissionMasterCard = 0.6
-    val minCommissionMasterCard = 20
-    val percentCommissionVisa = 0.75
-    val minCommissionVisa = 35
-    val maxMonthLimitMasterCard = 75_000
-    val maxDayLimitCard = 150_000
-    val maxMonthLimitCard = 600_000
 
     print("Введите сумму перевода в рублях: ")
     val amount: Int = readln().toInt()
@@ -21,8 +13,8 @@ fun main () {
         "5" -> typeCard = "MasterCard"
     }
 
-    calculationCommission(typeCard, previousSum, amount, percentCommissionMasterCard, minCommissionMasterCard,
-        percentCommissionVisa, minCommissionVisa, maxMonthLimitMasterCard, maxDayLimitCard, maxMonthLimitCard)
+    calculationCommission(typeCard, previousSum = 0, amount, percentCommissionMasterCard = 0.6, minCommissionMasterCard = 20,
+        percentCommissionVisa = 0.75, minCommissionVisa = 35, maxMonthLimitMasterCard = 75_000, maxDayLimitCard = 150_000, maxMonthLimitCard = 600_000)
 }
 
 fun calculationCommission(typeCard: String, previousSum: Int, amount: Int, percentCommissionMasterCard: Double,
