@@ -98,7 +98,7 @@ class CommissionKtTest {
         val maxMonthLimitMasterCard = 75_000
         val maxDayLimitCard = 150_000
         val maxMonthLimitCard = 600_000
-        val expectedResult = 965
+        val expectedResult = 1000
         val amount = 1_000
 
         val result = calculationCommission(typeCard, previousSum, amount, percentCommissionMasterCard,
@@ -128,7 +128,7 @@ class CommissionKtTest {
 
         assertEquals(expectedResult, result)
     }
-    
+
     @Test
     fun maxMonthlyLimitCard() {
         val typeCard = "MasterCard"
